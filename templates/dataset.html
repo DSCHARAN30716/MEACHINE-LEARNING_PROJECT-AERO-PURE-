@@ -1,0 +1,64 @@
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dataset</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>Dataset</h1>
+    <p>Reading and understanding the dataset</p>
+</header>
+
+<div class="container">
+
+    <div class="info">
+
+        <div>
+            <h3>Rows</h3>
+            <p>{{ rows }}</p>
+        </div>
+
+        <div>
+            <h3>Columns</h3>
+            <p>{{ columns }}</p>
+        </div>
+
+    </div>
+
+    <section>
+
+        <h2>Column Information</h2>
+
+        <div class="table-container">
+            {{ column_data | safe }}
+        </div>
+
+    </section>
+
+
+    <section>
+
+        <h2>First 10 Records</h2>
+
+        <div class="table-container">
+            {{ preview | safe }}
+        </div>
+
+    </section>
+
+    <a href="/" class="button">
+        Back to Home
+    </a>
+
+</div>
+
+</body>
+</html>
+```

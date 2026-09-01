@@ -1,0 +1,67 @@
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>EDA</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>Exploratory Data Analysis</h1>
+
+    <p>
+        Understanding the structure and quality
+        of the dataset
+    </p>
+
+</header>
+
+
+<div class="container">
+
+<section>
+
+<h2>Missing Values</h2>
+
+<div class="table-container">
+
+{{ missing | safe }}
+
+</div>
+
+</section>
+
+
+<section>
+
+<h2>Statistical Summary</h2>
+
+<div class="table-container">
+
+{{ statistics | safe }}
+
+</div>
+
+</section>
+
+
+<a href="/" class="button">
+
+Back to Home
+
+</a>
+
+</div>
+
+</body>
+
+</html>
+```

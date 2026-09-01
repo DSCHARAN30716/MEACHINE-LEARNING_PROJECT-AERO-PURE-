@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Preprocessing</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>Data Preprocessing</h1>
+
+    <p>
+        Cleaning and transforming the dataset
+    </p>
+
+</header>
+
+
+<div class="container">
+
+<section>
+
+<h2>Preprocessing Steps</h2>
+
+<div class="steps">
+
+<div class="step">
+<h3>Missing Values</h3>
+<p>
+Country missing values were filled
+using the mode.
+</p>
+</div>
+
+
+<div class="step">
+
+<h3>Duplicate Removal</h3>
+
+<p>
+Duplicates removed:
+<strong>{{ duplicates }}</strong>
+</p>
+
+</div>
+
+
+<div class="step">
+
+<h3>Feature Selection</h3>
+
+<p>
+Selected AQI, pollutant and
+location features.
+</p>
+
+</div>
+
+
+<div class="step">
+
+<h3>Feature Scaling</h3>
+
+<p>
+StandardScaler was applied to
+numerical features.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section>
+
+<h2>Preprocessed Data</h2>
+
+<div class="table-container">
+
+{{ data | safe }}
+
+</div>
+
+</section>
+
+
+<a href="/" class="button">
+
+Back to Home
+
+</a>
+
+</div>
+
+</body>
+
+</html>
+

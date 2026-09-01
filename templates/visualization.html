@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Visualization</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>Data Visualization</h1>
+
+    <p>Visual analysis of the Air Quality dataset</p>
+
+</header>
+
+
+<div class="container">
+
+<div class="chart-grid">
+
+    <div class="chart-card">
+
+        <h2>AQI Category Distribution</h2>
+
+        <img src="{{ url_for(
+            'static',
+            filename='charts/aqi_category.png'
+        ) }}">
+
+    </div>
+
+
+    <div class="chart-card">
+
+        <h2>AQI Distribution</h2>
+
+        <img src="{{ url_for(
+            'static',
+            filename='charts/aqi_distribution.png'
+        ) }}">
+
+    </div>
+
+
+    <div class="chart-card">
+
+        <h2>Pollutant Analysis</h2>
+
+        <img src="{{ url_for(
+            'static',
+            filename='charts/pollutants.png'
+        ) }}">
+
+    </div>
+
+
+    <div class="chart-card">
+
+        <h2>AQI vs PM2.5</h2>
+
+        <img src="{{ url_for(
+            'static',
+            filename='charts/aqi_pm25.png'
+        ) }}">
+
+    </div>
+
+</div>
+
+
+<a href="/" class="button">
+
+Back to Home
+
+</a>
+
+</div>
+
+</body>
+
+</html>
