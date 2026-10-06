@@ -506,6 +506,42 @@ def w3():
     )
 
 
+@app.route("/w4")
+def w4():
+    regression_path = os.path.join("outputs", "w4_ridge_lasso_regression_metrics.csv")
+    classification_path = os.path.join("outputs", "w4_logistic_regression_metrics.csv")
+    coefficient_path = os.path.join("outputs", "w4_regularized_logistic_coefficients.csv")
+    feature_path = os.path.join("outputs", "w4_feature_engineering_summary.csv")
+    prediction_path = os.path.join("outputs", "w4_regularized_logistic_predictions.csv")
+
+    if not os.path.exists(regression_path):
+        return render_template(
+            "w4.html",
+            ready=False,
+            regression_metrics="",
+            classification_metrics="",
+            feature_summary="",
+            coefficients="",
+            predictions="",
+        )
+
+    regression_metrics = pd.read_csv(regression_path)
+    classification_metrics = pd.read_csv(classification_path)
+    feature_summary = pd.read_csv(feature_path)
+    coefficients = pd.read_csv(coefficient_path)
+    predictions = pd.read_csv(prediction_path)
+
+    return render_template(
+        "w4.html",
+        ready=True,
+        regression_metrics=regression_metrics.to_html(index=False, classes="data-table"),
+        classification_metrics=classification_metrics.to_html(index=False, classes="data-table"),
+        feature_summary=feature_summary.to_html(index=False, classes="data-table"),
+        coefficients=coefficients.head(25).to_html(index=False, classes="data-table"),
+        predictions=predictions.head(25).to_html(index=False, classes="data-table"),
+    )
+
+
 if __name__ == "__main__":
     app.run(
         debug=True

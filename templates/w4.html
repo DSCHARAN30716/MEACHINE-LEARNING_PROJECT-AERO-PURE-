@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Week 4 Regularized Models</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>Week 4 Regularized Models</h1>
+    <p>Ridge, lasso, logistic regression, and engineered sensor/weather history features.</p>
+</header>
+
+<div class="container">
+
+{% if not ready %}
+
+<section>
+    <h2>Run Required</h2>
+    <p>Run <strong>python week_04_regularized_and_logistic.py</strong> to generate Week 4 results.</p>
+</section>
+
+{% else %}
+
+<section>
+    <h2>Feature Engineering Summary</h2>
+    <div class="table-container">
+        {{ feature_summary | safe }}
+    </div>
+</section>
+
+<section>
+    <h2>Ridge and Lasso Metrics</h2>
+    <div class="table-container">
+        {{ regression_metrics | safe }}
+    </div>
+</section>
+
+<section>
+    <h2>Logistic Regression Metrics</h2>
+    <div class="table-container">
+        {{ classification_metrics | safe }}
+    </div>
+</section>
+
+<section>
+    <h2>Top Coefficients</h2>
+    <div class="table-container">
+        {{ coefficients | safe }}
+    </div>
+</section>
+
+<section>
+    <h2>Prediction Preview</h2>
+    <div class="table-container">
+        {{ predictions | safe }}
+    </div>
+</section>
+
+{% endif %}
+
+<a href="/" class="button">
+    Back to Home
+</a>
+
+</div>
+
+</body>
+
+</html>
