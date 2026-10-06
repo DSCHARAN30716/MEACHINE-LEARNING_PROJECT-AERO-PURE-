@@ -474,6 +474,38 @@ def preprocessing():
     )
 
 
+@app.route("/w3")
+def w3():
+    metric_path = os.path.join("outputs", "w3_linear_regression_metrics.csv")
+    coefficient_path = os.path.join("outputs", "w3_linear_regression_coefficients.csv")
+    prediction_path = os.path.join("outputs", "w3_linear_regression_predictions.csv")
+    loss_path = os.path.join("outputs", "w3_gradient_descent_loss.csv")
+
+    if not os.path.exists(metric_path):
+        return render_template(
+            "w3.html",
+            ready=False,
+            metrics="",
+            coefficients="",
+            predictions="",
+            loss="",
+        )
+
+    metrics = pd.read_csv(metric_path)
+    coefficients = pd.read_csv(coefficient_path)
+    predictions = pd.read_csv(prediction_path)
+    loss = pd.read_csv(loss_path)
+
+    return render_template(
+        "w3.html",
+        ready=True,
+        metrics=metrics.to_html(index=False, classes="data-table"),
+        coefficients=coefficients.to_html(index=False, classes="data-table"),
+        predictions=predictions.head(25).to_html(index=False, classes="data-table"),
+        loss=loss.to_html(index=False, classes="data-table"),
+    )
+
+
 if __name__ == "__main__":
     app.run(
         debug=True

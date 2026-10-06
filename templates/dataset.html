@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Dataset</title>
+    <title>Dataset Source Audit</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
@@ -11,8 +11,8 @@
 <body>
 
 <header>
-    <h1>Source Audit</h1>
-    <p>Current feed inventory for W1 and W2</p>
+    <h1>Dataset Source Audit</h1>
+    <p>Current feed inventory and schema overview for the AeroPure workflow.</p>
 </header>
 
 <div class="container">
@@ -43,7 +43,7 @@
 
     <section>
 
-        <h2>Column Information</h2>
+        <h2>Dataset Schema</h2>
 
         <div class="table-container">
             {{ column_data | safe }}
@@ -54,7 +54,7 @@
 
     <section>
 
-        <h2>First 10 Records</h2>
+        <h2>Raw Data Preview</h2>
 
         <div class="table-container">
             {{ preview | safe }}

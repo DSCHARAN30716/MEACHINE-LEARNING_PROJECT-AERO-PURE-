@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Week 3 Linear Regression Baseline</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>Week 3 Linear Regression Baseline</h1>
+    <p>Closed-form OLS, gradient descent, metrics, and MLflow experiment logging.</p>
+</header>
+
+<div class="container">
+
+{% if not ready %}
+
+<section>
+    <h2>Run Required</h2>
+    <p>Run <strong>python week_03_linear_regression_baseline.py</strong> to generate W3 results.</p>
+</section>
+
+{% else %}
+
+<section>
+    <h2>Model Metrics</h2>
+    <div class="table-container">
+        {{ metrics | safe }}
+    </div>
+</section>
+
+<section>
+    <h2>Coefficients</h2>
+    <div class="table-container">
+        {{ coefficients | safe }}
+    </div>
+</section>
+
+<section>
+    <h2>Gradient Descent Loss</h2>
+    <div class="table-container">
+        {{ loss | safe }}
+    </div>
+</section>
+
+<section>
+    <h2>Prediction Preview</h2>
+    <div class="table-container">
+        {{ predictions | safe }}
+    </div>
+</section>
+
+{% endif %}
+
+<a href="/" class="button">
+    Back to Home
+</a>
+
+</div>
+
+</body>
+
+</html>
