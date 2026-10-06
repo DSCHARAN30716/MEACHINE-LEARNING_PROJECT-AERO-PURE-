@@ -1,0 +1,6 @@
+Check,Result,Detail
+Required schema,Pass,All expected columns are present.
+Duplicate rows,Pass,0 duplicates found.
+AQI range,Pass,Observed 8 to 500.
+Time coverage,Pass,2013-03-01 00:00:00 to 2017-02-28 23:00:00
+Numeric missingness,Review,81877 missing numeric cells.

@@ -1,0 +1,23 @@
+column,missing_values
+No,0
+year,0
+month,0
+day,0
+hour,0
+PM2.5,8739
+PM10,6449
+SO2,9021
+NO2,12116
+CO,20701
+O3,13277
+TEMP,398
+PRES,393
+DEWP,403
+RAIN,390
+wd,1822
+WSPM,318
+station,0
+source_file,0
+datetime,0
+AQI Value,9672
+AQI Category,0

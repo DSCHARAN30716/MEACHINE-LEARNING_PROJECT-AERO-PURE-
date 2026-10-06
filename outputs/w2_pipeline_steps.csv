@@ -1,0 +1,6 @@
+step,detail
+ingest,Load PRSA station-level air-quality and weather CSV files.
+validate,"Check schema, duplicate rows, AQI bounds, time coverage, and numeric missingness."
+clean,"Drop duplicates, fill station names, and fill numeric gaps with station-aware forward/backward fill plus median fallback."
+target,Create hazardous_air_day_flag and tomorrows_aqi_value without using future features.
+scale,Scale source-safe pollutant and weather features with StandardScaler.

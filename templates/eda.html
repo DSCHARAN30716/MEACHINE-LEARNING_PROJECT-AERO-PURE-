@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html>
 
@@ -15,11 +14,10 @@
 
 <header>
 
-    <h1>Exploratory Data Analysis</h1>
+    <h1>W1 Exploratory Data Analysis</h1>
 
     <p>
-        Understanding the structure and quality
-        of the dataset
+        Understanding source quality, target balance, and error floor signals
     </p>
 
 </header>
@@ -29,11 +27,37 @@
 
 <section>
 
+<h2>Target Definitions</h2>
+
+<div class="table-container">
+
+{{ hazardous_summary | safe }}
+
+</div>
+
+</section>
+
+
+<section>
+
 <h2>Missing Values</h2>
 
 <div class="table-container">
 
 {{ missing | safe }}
+
+</div>
+
+</section>
+
+
+<section>
+
+<h2>AQI Category Distribution</h2>
+
+<div class="table-container">
+
+{{ category_distribution | safe }}
 
 </div>
 
@@ -64,4 +88,3 @@ Back to Home
 </body>
 
 </html>
-```

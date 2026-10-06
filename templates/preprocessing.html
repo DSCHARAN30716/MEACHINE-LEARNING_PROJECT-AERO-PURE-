@@ -14,10 +14,10 @@
 
 <header>
 
-    <h1>Data Preprocessing</h1>
+    <h1>W2 Preprocessing Pipeline</h1>
 
     <p>
-        Cleaning and transforming the dataset
+        Validating, cleaning, target-building, and scaling source-safe features
     </p>
 
 </header>
@@ -34,8 +34,8 @@
 <div class="step">
 <h3>Missing Values</h3>
 <p>
-Country missing values were filled
-using the mode.
+{{ missing_values }} raw missing cells are
+filled with station-aware numeric values.
 </p>
 </div>
 
@@ -57,8 +57,8 @@ Duplicates removed:
 <h3>Feature Selection</h3>
 
 <p>
-Selected AQI, pollutant and
-location features.
+Selected pollutant and location fields;
+AQI is kept as target, not as a model input.
 </p>
 
 </div>
@@ -70,7 +70,7 @@ location features.
 
 <p>
 StandardScaler was applied to
-numerical features.
+numeric model features.
 </p>
 
 </div>
@@ -82,7 +82,20 @@ numerical features.
 
 <section>
 
-<h2>Preprocessed Data</h2>
+<h2>Validation Checks</h2>
+
+<div class="table-container">
+
+{{ validation | safe }}
+
+</div>
+
+</section>
+
+
+<section>
+
+<h2>Model-Ready Preview</h2>
 
 <div class="table-container">
 

@@ -1,0 +1,3 @@
+target,definition,available_rows,positive_rows,positive_rate
+hazardous_air_day_flag,1 when AQI Value >= 151,420480,208682,0.4963
+tomorrows_aqi_value,Next calendar day's mean AQI Value for the same station,420480,N/A,N/A

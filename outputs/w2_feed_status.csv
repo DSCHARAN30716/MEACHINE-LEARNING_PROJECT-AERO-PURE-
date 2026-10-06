@@ -1,0 +1,5 @@
+Feed,Status,Current Source,W2 Note
+Public air-quality sensors,Ingested,Dataset/PRSA_Data_20130301-20170228/*.csv,Station-level pollutant history is validated and target-ready.
+Weather,Ingested,Dataset/PRSA_Data_20130301-20170228/*.csv,Weather fields are cleaned with time-safe station medians.
+Traffic,Pending source,Not present in repo,Reserved for future join by station/location/date.
+Satellite,Pending source,Not present in repo,Reserved for future join by location/date.

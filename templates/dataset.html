@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html>
 
@@ -12,8 +11,8 @@
 <body>
 
 <header>
-    <h1>Dataset</h1>
-    <p>Reading and understanding the dataset</p>
+    <h1>Source Audit</h1>
+    <p>Current feed inventory for W1 and W2</p>
 </header>
 
 <div class="container">
@@ -31,6 +30,16 @@
         </div>
 
     </div>
+
+    <section>
+
+        <h2>Feed Status</h2>
+
+        <div class="table-container">
+            {{ feed_status | safe }}
+        </div>
+
+    </section>
 
     <section>
 
@@ -61,4 +70,3 @@
 
 </body>
 </html>
-```

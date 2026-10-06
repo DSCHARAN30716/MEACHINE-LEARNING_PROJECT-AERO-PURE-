@@ -1,0 +1,12 @@
+feature,role
+PM2.5,source_safe_model_input
+PM10,source_safe_model_input
+SO2,source_safe_model_input
+NO2,source_safe_model_input
+CO,source_safe_model_input
+O3,source_safe_model_input
+TEMP,source_safe_model_input
+PRES,source_safe_model_input
+DEWP,source_safe_model_input
+RAIN,source_safe_model_input
+WSPM,source_safe_model_input
