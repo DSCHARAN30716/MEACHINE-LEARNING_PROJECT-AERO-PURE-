@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Week 5 Honest Baseline</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>Week 5 Honest Baseline</h1>
+    <p>Cross-validation tuning, one-standard-error selection, and sealed test evaluation.</p>
+</header>
+
+<div class="container">
+
+{% if not ready %}
+
+<section>
+    <h2>Run Required</h2>
+    <p>Run <strong>python week_05_cv_honest_baseline.py</strong> to generate Week 5 results.</p>
+</section>
+
+{% else %}
+
+<section>
+    <h2>Milestone Summary</h2>
+    <div class="table-container">
+        {{ milestone | safe }}
+    </div>
+</section>
+
+<section>
+    <h2>One-Standard-Error Selection</h2>
+    <div class="table-container">
+        {{ selection | safe }}
+    </div>
+</section>
+
+<section>
+    <h2>Honest Regression Metrics</h2>
+    <div class="table-container">
+        {{ regression_metrics | safe }}
+    </div>
+</section>
+
+<section>
+    <h2>Honest Logistic Metrics</h2>
+    <div class="table-container">
+        {{ classification_metrics | safe }}
+    </div>
+</section>
+
+<section>
+    <h2>Cross-Validation Results</h2>
+    <div class="table-container">
+        {{ cv_results | safe }}
+    </div>
+</section>
+
+<section>
+    <h2>Prediction Preview</h2>
+    <div class="table-container">
+        {{ predictions | safe }}
+    </div>
+</section>
+
+{% endif %}
+
+<a href="/" class="button">
+    Back to Home
+</a>
+
+</div>
+
+</body>
+
+</html>

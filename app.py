@@ -542,6 +542,46 @@ def w4():
     )
 
 
+@app.route("/w5")
+def w5():
+    cv_path = os.path.join("outputs", "w5_cross_validation_results.csv")
+    selection_path = os.path.join("outputs", "w5_one_standard_error_selection.csv")
+    regression_path = os.path.join("outputs", "w5_honest_regression_metrics.csv")
+    classification_path = os.path.join("outputs", "w5_honest_logistic_metrics.csv")
+    milestone_path = os.path.join("outputs", "w5_honest_baseline_milestone.csv")
+    prediction_path = os.path.join("outputs", "w5_honest_predictions.csv")
+
+    if not os.path.exists(milestone_path):
+        return render_template(
+            "w5.html",
+            ready=False,
+            milestone="",
+            selection="",
+            regression_metrics="",
+            classification_metrics="",
+            cv_results="",
+            predictions="",
+        )
+
+    cv_results = pd.read_csv(cv_path)
+    selection = pd.read_csv(selection_path)
+    regression_metrics = pd.read_csv(regression_path)
+    classification_metrics = pd.read_csv(classification_path)
+    milestone = pd.read_csv(milestone_path)
+    predictions = pd.read_csv(prediction_path)
+
+    return render_template(
+        "w5.html",
+        ready=True,
+        milestone=milestone.to_html(index=False, classes="data-table"),
+        selection=selection.to_html(index=False, classes="data-table"),
+        regression_metrics=regression_metrics.to_html(index=False, classes="data-table"),
+        classification_metrics=classification_metrics.to_html(index=False, classes="data-table"),
+        cv_results=cv_results.head(40).to_html(index=False, classes="data-table"),
+        predictions=predictions.head(25).to_html(index=False, classes="data-table"),
+    )
+
+
 if __name__ == "__main__":
     app.run(
         debug=True

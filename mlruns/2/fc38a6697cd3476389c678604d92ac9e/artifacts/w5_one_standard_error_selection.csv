@@ -1,0 +1,4 @@
+model,selected_value,best_value,one_standard_error_threshold,metric
+ridge_regression,100.0,100.0,67.55400703619824,rmse
+lasso_regression,0.1,0.1,67.53539775250434,rmse
+logistic_regression,0.1,10.0,0.711246869525214,roc_auc
