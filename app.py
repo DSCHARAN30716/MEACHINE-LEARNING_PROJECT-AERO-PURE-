@@ -825,28 +825,29 @@ def forecast_from_inputs(inputs):
 
 @app.route("/")
 def home():
-    df = load_data()
-    cleaned, _, _ = prepare_clean_data(df)
+    # Keep the public landing page lightweight.  Loading and cleaning all 12
+    # PRSA CSVs here duplicates several large pandas frames and exceeds the
+    # 512 MB memory limit on Render's free instance.  The weekly pipeline
+    # already writes the summaries needed by this page, so defer the full
+    # dataset load to the analysis routes that actually need it.
+    target_summary = pd.read_csv(os.path.join("outputs", "w1_target_summary.csv"))
+    validation_report = pd.read_csv(os.path.join("outputs", "w2_validation_report.csv"))
+    station_summary = pd.read_csv(os.path.join("outputs", "eda_station_risk_summary.csv"))
+    forecast_preview = pd.read_csv(os.path.join("outputs", "w12_public_forecast.csv")).head(5)
+
+    target_row = target_summary.loc[
+        target_summary["target"].eq("hazardous_air_day_flag")
+    ].iloc[0]
+    missing_detail = validation_report.loc[
+        validation_report["Check"].eq("Numeric missingness"), "Detail"
+    ]
+    missing_values = int(missing_detail.iloc[0].split()[0]) if not missing_detail.empty else 0
+
     completion = week_completion_summary()
-    forecast_preview = pd.DataFrame()
-    if os.path.exists(os.path.join("outputs", "w12_public_forecast.csv")):
-        forecast_preview = pd.read_csv(os.path.join("outputs", "w12_public_forecast.csv")).head(5)
-    station_summary = (
-        cleaned.groupby("station")
-        .agg(mean_aqi=("AQI Value", "mean"), hazardous_rate=("hazardous_air_day_flag", "mean"))
-        .round(3)
-        .sort_values("hazardous_rate", ascending=False)
-        .head(5)
-        .reset_index()
-    )
-    current_station_rows = (
-        cleaned.sort_values(["datetime", "station"])
-        .groupby("station", as_index=False)
-        .tail(1)
-        .sort_values("AQI Value", ascending=False)
-        .head(12)
-        .copy()
-    )
+    station_summary = station_summary.head(5)
+    current_station_rows = forecast_preview.copy()
+    current_station_rows["PM2.5"] = np.nan
+    current_station_rows["TEMP"] = np.nan
     current_station_rows["aqi_level"] = current_station_rows["AQI Value"].apply(aqi_level)
     current_station_rows["marker_left"] = np.linspace(12, 84, len(current_station_rows)).round(1)
     current_station_rows["marker_top"] = (
@@ -868,10 +869,10 @@ def home():
 
     return render_template(
         "index.html",
-        rows=len(df),
-        columns=len(df.columns),
-        hazardous_days=int(cleaned["hazardous_air_day_flag"].sum()),
-        missing_values=int(df.isna().sum().sum()),
+        rows=int(target_row["available_rows"]),
+        columns=17,
+        hazardous_days=int(target_row["positive_rows"]),
+        missing_values=missing_values,
         completion=completion,
         completed_weeks=sum(1 for row in completion if row["complete"]),
         forecast_preview=forecast_preview.to_dict("records"),
@@ -1439,4 +1440,3 @@ if __name__ == "__main__":
     app.run(
         debug=True
     )
-
