@@ -1,0 +1,2 @@
+test,model_a,model_b,model_a_only_correct,model_b_only_correct,p_value
+mcnemar_exact_binomial,random_forest,logistic_baseline,5003,5502,1.175650998595732e-06

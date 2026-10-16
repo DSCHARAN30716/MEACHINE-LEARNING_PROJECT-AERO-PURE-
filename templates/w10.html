@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Week 10 Rigorous Evaluation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>Week 10 Rigorous Evaluation</h1>
+    <p>Nested CV, calibration, imbalance-aware metrics, and a sealed-test significance check.</p>
+</header>
+
+<div class="container">
+
+{% if not ready %}
+<section>
+    <h2>Run Required</h2>
+    <p>Run <strong>python week_10_rigorous_evaluation.py</strong> to generate Week 10 results.</p>
+</section>
+{% else %}
+<section>
+    <h2>Champion Summary</h2>
+    <div class="table-container">{{ champion | safe }}</div>
+</section>
+<section>
+    <h2>Sealed Test Metrics</h2>
+    <div class="table-container">{{ metrics | safe }}</div>
+</section>
+<section>
+    <h2>Calibration Metrics</h2>
+    <div class="table-container">{{ calibration | safe }}</div>
+</section>
+<section>
+    <h2>Significance Test</h2>
+    <div class="table-container">{{ significance | safe }}</div>
+</section>
+<section>
+    <h2>Nested CV Results</h2>
+    <div class="table-container">{{ nested | safe }}</div>
+</section>
+{% endif %}
+
+<a href="/" class="button">Back to Home</a>
+
+</div>
+
+</body>
+
+</html>

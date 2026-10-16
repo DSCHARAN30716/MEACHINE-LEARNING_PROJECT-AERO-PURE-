@@ -1,0 +1,2 @@
+job,cadence,trigger,command,approval_gate
+seasonal_retrain,quarterly,calendar season boundary or PSI fail threshold,python week_11_package_champion.py && python week_12_deploy_monitor_retrain.py,compare sealed-test metrics and drift report before replacing champion

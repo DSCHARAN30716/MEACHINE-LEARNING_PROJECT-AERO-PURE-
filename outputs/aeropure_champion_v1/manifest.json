@@ -1,0 +1,14 @@
+{
+  "package_name": "aeropure_champion_v1",
+  "model_file": "model.joblib",
+  "feature_module": "aeropure_features.py",
+  "feature_schema": "feature_schema.csv",
+  "drift_guard": "psi_drift_guard.csv",
+  "target": "tomorrows_hazardous_air_day_flag",
+  "feature_count": 40,
+  "fit_rows": 120000,
+  "evaluation_rows": 60000,
+  "early_stopping_iterations": 220,
+  "psi_warn_threshold": 0.1,
+  "psi_fail_threshold": 0.25
+}

@@ -27,6 +27,27 @@
 
 <section>
 
+<h2>Graphical EDA</h2>
+
+<div class="chart-grid">
+
+{% for chart in eda_charts %}
+
+    <div class="chart-card">
+        <h2>{{ chart.title }}</h2>
+        <img src="{{ url_for('static', filename='charts/' + chart.filename) }}"
+             alt="{{ chart.title }}">
+    </div>
+
+{% endfor %}
+
+</div>
+
+</section>
+
+
+<section>
+
 <h2>Target Definitions</h2>
 
 <div class="table-container">
@@ -53,11 +74,89 @@
 
 <section>
 
+<h2>Missingness Profile</h2>
+
+<div class="table-container">
+
+{{ missing_profile | safe }}
+
+</div>
+
+</section>
+
+
+<section>
+
 <h2>AQI Category Distribution</h2>
 
 <div class="table-container">
 
 {{ category_distribution | safe }}
+
+</div>
+
+</section>
+
+
+<section>
+
+<h2>Station-Level Risk Summary</h2>
+
+<div class="table-container">
+
+{{ station_summary | safe }}
+
+</div>
+
+</section>
+
+
+<section>
+
+<h2>Hourly Pattern</h2>
+
+<div class="table-container">
+
+{{ hourly_pattern | safe }}
+
+</div>
+
+</section>
+
+
+<section>
+
+<h2>Monthly Pattern</h2>
+
+<div class="table-container">
+
+{{ monthly_pattern | safe }}
+
+</div>
+
+</section>
+
+
+<section>
+
+<h2>Target Correlation</h2>
+
+<div class="table-container">
+
+{{ target_correlation | safe }}
+
+</div>
+
+</section>
+
+
+<section>
+
+<h2>Outlier Scan</h2>
+
+<div class="table-container">
+
+{{ outliers | safe }}
 
 </div>
 

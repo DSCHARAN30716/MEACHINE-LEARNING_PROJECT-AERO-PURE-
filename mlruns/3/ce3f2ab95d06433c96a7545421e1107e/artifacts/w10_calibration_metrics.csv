@@ -1,0 +1,5 @@
+model,brier_score
+logistic_baseline,0.20670157239771117
+calibrated_logistic,0.20048428883188008
+random_forest,0.20263382218200052
+hist_gradient_boosting,0.1965199487780029

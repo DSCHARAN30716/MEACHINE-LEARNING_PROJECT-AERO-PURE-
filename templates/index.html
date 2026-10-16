@@ -1,82 +1,167 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Air Quality ML Project</title>
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <title>AeroPure Forecast Lab</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
-<header>
-    <h1>AeroPure Air Quality ML Project</h1>
-    <p>Week 1 to Week 5 workflow: data audit, EDA, preprocessing, linear baselines, regularization, and CV tuning.</p>
+<header class="hero">
+    <div>
+        <p class="eyebrow">12-week machine learning pipeline</p>
+        <h1>AeroPure Forecast Lab</h1>
+        <p>Explore sensor history, model evidence, drift monitoring, and future hazardous-air-day forecasts from one analytical dashboard.</p>
+        <div class="hero-actions">
+            <a href="/predict" class="button button-light">Forecast a Scenario</a>
+            <a href="/w12" class="button button-ghost">View Deployment</a>
+        </div>
+    </div>
+    <div class="hero-panel">
+        <span>Model readiness</span>
+        <strong>{{ completed_weeks }}/12 weeks complete</strong>
+        <div class="progress-track">
+            <div class="progress-fill" style="width: {{ (completed_weeks / 12 * 100) | round(0) }}%"></div>
+        </div>
+    </div>
 </header>
 
-<div class="container">
+<main class="container">
+
+    <section class="monitor-wall">
+        <div class="aqi-tile {{ latest_level }}">
+            <span>Current local station</span>
+            <strong>{{ latest_aqi }}</strong>
+            <small>{{ latest_station }} AQI estimate</small>
+        </div>
+        <div>
+            <h2>Station Monitor View</h2>
+            <p>Local project stations are shown with AQI category colors, pollutant readings, forecast probability, and model monitoring status.</p>
+            <div class="tab-row" aria-label="AQI views">
+                <a href="#current" class="tab active">Current</a>
+                <a href="/predict" class="tab">Forecast</a>
+                <a href="/w11" class="tab">Drift</a>
+                <a href="/presentation" class="tab">Presentation</a>
+            </div>
+        </div>
+        <div class="monitor-metrics">
+            <div><span>Forecast risk</span><strong>{{ forecast_average }}%</strong></div>
+            <div><span>Drift guard</span><strong>{{ monitor_status }}</strong></div>
+        </div>
+    </section>
+
+    <section class="map-section" id="current">
+        <div class="map-copy">
+            <h2>AeroPure Station Map</h2>
+            <p>Map-style view of the 12 PRSA stations in the local dataset. Marker colors follow AQI bands used across the model outputs.</p>
+            <div class="aqi-legend">
+                <span class="good">Good</span>
+                <span class="moderate">Moderate</span>
+                <span class="sensitive">Sensitive</span>
+                <span class="unhealthy">Unhealthy</span>
+                <span class="very-unhealthy">Very Unhealthy</span>
+                <span class="hazardous">Hazardous</span>
+            </div>
+        </div>
+        <div class="station-map">
+            {% for station in station_map %}
+            <a class="map-marker {{ station.aqi_level }}"
+               style="left: {{ station.marker_left }}%; top: {{ station.marker_top }}%;"
+               href="/predict"
+               title="{{ station.station }} AQI {{ station['AQI Value'] }}">
+                <strong>{{ station['AQI Value'] | round(0) | int }}</strong>
+                <span>{{ station.station }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
 
     <div class="info">
         <div>
             <h3>Rows</h3>
             <p>{{ rows }}</p>
         </div>
-
         <div>
             <h3>Columns</h3>
             <p>{{ columns }}</p>
         </div>
-
         <div>
-            <h3>Hazardous Days</h3>
+            <h3>Hazardous Labels</h3>
             <p>{{ hazardous_days }}</p>
         </div>
-
         <div>
             <h3>Missing Cells</h3>
             <p>{{ missing_values }}</p>
         </div>
     </div>
 
-    <div class="cards">
+    <section class="forecast-strip">
+        <div>
+            <h2>Interactive Future Forecasting</h2>
+            <p>Prompt the model with station, pollutant, weather, traffic, and satellite-smoke assumptions, then project hazardous-air-day risk up to 30 days forward.</p>
+        </div>
+        <a href="/predict" class="button">Open Predictor</a>
+    </section>
 
-        <a href="/dataset" class="card">
-            <h2>01. Dataset Source Audit</h2>
-            <p>Check available sensor data and pending external feeds.</p>
-        </a>
+    <div class="dashboard-grid">
+        <section>
+            <h2>Highest-Risk Stations</h2>
+            <div class="rank-list">
+                {% for station in station_summary %}
+                <div class="rank-row">
+                    <span>{{ station.station }}</span>
+                    <div>
+                        <strong>{{ (station.hazardous_rate * 100) | round(1) }}%</strong>
+                        <small>Mean AQI {{ station.mean_aqi | round(1) }}</small>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
 
-        <a href="/eda" class="card">
-            <h2>02. Week 1 EDA</h2>
-            <p>Review missingness, distributions, statistics, and targets.</p>
-        </a>
-
-        <a href="/visualization" class="card">
-            <h2>03. Source Profiles</h2>
-            <p>Compare pollutant and station-level AQI summaries.</p>
-        </a>
-
-        <a href="/preprocessing" class="card">
-            <h2>04. Week 2 Pipeline</h2>
-            <p>Validate, clean, target, and scale leakage-safe features.</p>
-        </a>
-
-        <a href="/w3" class="card">
-            <h2>05. Week 3 Baseline</h2>
-            <p>Review OLS, gradient descent, metrics, and MLflow logging.</p>
-        </a>
-
-        <a href="/w4" class="card">
-            <h2>06. Week 4 Regularized Models</h2>
-            <p>Review ridge, lasso, logistic regression, and engineered history features.</p>
-        </a>
-
-        <a href="/w5" class="card">
-            <h2>07. Week 5 Honest Baseline</h2>
-            <p>Review cross-validation, one-standard-error selection, and sealed test metrics.</p>
-        </a>
-
+        <section>
+            <h2>Latest Public Forecast</h2>
+            {% if forecast_preview %}
+            <div class="forecast-list">
+                {% for row in forecast_preview %}
+                <div class="forecast-item">
+                    <span>{{ row.station }}</span>
+                    <strong>{{ (row.hazard_probability * 100) | round(1) }}%</strong>
+                    <small>{{ row.public_status }}</small>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p>Run <strong>python week_12_deploy_monitor_retrain.py</strong> to generate the public forecast.</p>
+            {% endif %}
+        </section>
     </div>
 
-</div>
+    <section>
+        <h2>Build Pipeline Evidence</h2>
+        <div class="timeline">
+            {% for item in completion %}
+            <a href="{{ '/w' + item.week[1:] if item.week not in ['W1', 'W2'] else ('/eda' if item.week == 'W1' else '/preprocessing') }}"
+               class="timeline-item {{ 'done' if item.complete else '' }}">
+                <span>{{ item.week }}</span>
+                <strong>{{ 'Complete' if item.complete else 'Pending' }}</strong>
+                <small>{{ item.artifact_count }}/{{ item.expected_count }} artifacts</small>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+
+    <div class="cards">
+        <a href="/dataset" class="card"><h2>Dataset Source Audit</h2><p>Sensor, weather, traffic, and satellite feed status.</p></a>
+        <a href="/eda" class="card"><h2>EDA and Targets</h2><p>Distributions, correlations, missingness, and target definitions.</p></a>
+        <a href="/preprocessing" class="card"><h2>Pipeline</h2><p>Validated, cleaned, leakage-safe model-ready features.</p></a>
+        <a href="/w8" class="card"><h2>Champion Modeling</h2><p>Early-stopped boosting and feature importance.</p></a>
+        <a href="/w10" class="card"><h2>Evaluation</h2><p>Nested CV, calibration, imbalance metrics, significance.</p></a>
+        <a href="/w11" class="card"><h2>Package and Drift</h2><p>Versioned artifact, feature schema, and PSI guard.</p></a>
+        <a href="/presentation" class="card"><h2>Project Presentation</h2><p>Download the W1-W12 PPT summary stored with the website.</p></a>
+    </div>
+
+</main>
 
 </body>
 </html>

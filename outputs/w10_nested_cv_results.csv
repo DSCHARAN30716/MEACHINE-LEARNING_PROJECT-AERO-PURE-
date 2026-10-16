@@ -1,0 +1,9 @@
+model,max_depth,fold,roc_auc
+random_forest,6,1,0.6862267957706489
+random_forest,6,2,0.7408520164015702
+random_forest,6,3,0.766242964174106
+random_forest,6,mean,0.7311072587821084
+random_forest,10,1,0.6758736199453891
+random_forest,10,2,0.7496632153477172
+random_forest,10,3,0.7476270342618164
+random_forest,10,mean,0.7243879565183077

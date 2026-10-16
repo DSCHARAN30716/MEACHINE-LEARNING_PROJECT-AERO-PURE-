@@ -1,0 +1,4 @@
+item,detail
+champion_model,HistGradientBoostingClassifier used as the local champion because xgboost is not installed locally.
+explanation_method,Permutation importance used because shap is not installed locally.
+early_stopping_iterations,180

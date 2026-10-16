@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Week 6 Decision Tree</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>Week 6 Decision Tree</h1>
+    <p>Interpretable hazardous-air-day classifier and top split analysis.</p>
+</header>
+
+<div class="container">
+
+{% if not ready %}
+
+<section>
+    <h2>Run Required</h2>
+    <p>Run <strong>python week_06_decision_tree.py</strong> to generate Week 6 results.</p>
+</section>
+
+{% else %}
+
+<section>
+    <h2>Tree Metrics</h2>
+    <div class="table-container">{{ metrics | safe }}</div>
+</section>
+
+<section>
+    <h2>Top Split Nodes</h2>
+    <div class="table-container">{{ splits | safe }}</div>
+</section>
+
+<section>
+    <h2>Feature Importance</h2>
+    <div class="table-container">{{ importance | safe }}</div>
+</section>
+
+<section>
+    <h2>Tree Rules</h2>
+    <div class="table-container">{{ rules | safe }}</div>
+</section>
+
+<section>
+    <h2>Prediction Preview</h2>
+    <div class="table-container">{{ predictions | safe }}</div>
+</section>
+
+{% endif %}
+
+<a href="/" class="button">
+    Back to Home
+</a>
+
+</div>
+
+</body>
+
+</html>

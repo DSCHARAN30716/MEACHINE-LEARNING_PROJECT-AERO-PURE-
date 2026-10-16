@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Week 8 Boosting Champion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>Week 8 Boosting Champion</h1>
+    <p>Early-stopped boosted classifier and prediction explanations for hazardous-air-day risk.</p>
+</header>
+
+<div class="container">
+
+{% if not ready %}
+<section>
+    <h2>Run Required</h2>
+    <p>Run <strong>python week_08_boosting_champion.py</strong> to generate Week 8 results.</p>
+</section>
+{% else %}
+<section>
+    <h2>Champion Metrics</h2>
+    <div class="table-container">{{ metrics | safe }}</div>
+</section>
+<section>
+    <h2>Permutation Importance</h2>
+    <div class="table-container">{{ importance | safe }}</div>
+</section>
+<section>
+    <h2>Station Prediction Slices</h2>
+    <div class="table-container">{{ slices | safe }}</div>
+</section>
+<section>
+    <h2>Implementation Notes</h2>
+    <div class="table-container">{{ notes | safe }}</div>
+</section>
+<section>
+    <h2>Prediction Preview</h2>
+    <div class="table-container">{{ predictions | safe }}</div>
+</section>
+{% endif %}
+
+<a href="/" class="button">Back to Home</a>
+
+</div>
+
+</body>
+
+</html>

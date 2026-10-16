@@ -1,0 +1,2 @@
+model,target,accuracy,precision,recall,f1,roc_auc
+logistic_regression,tomorrows_hazardous_air_day_flag,0.6866278653722301,0.5854790613250357,0.6869599610563466,0.6321728052860722,0.7434225254281815

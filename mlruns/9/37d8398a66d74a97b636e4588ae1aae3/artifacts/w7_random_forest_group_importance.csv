@@ -1,0 +1,6 @@
+feature_group,permutation_importance_mean
+sensor_current,0.04667231194892911
+weather_current,0.029302300467703695
+time,0.018024446675069715
+sensor_weather_history,0.0005673132796297775
+station_history,4.4672535430538104e-05

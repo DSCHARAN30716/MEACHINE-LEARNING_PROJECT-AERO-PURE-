@@ -1,0 +1,2 @@
+new_feature,usage
+pollution_regime_cluster,Feed this KMeans segment label back into later supervised models as a regime feature.

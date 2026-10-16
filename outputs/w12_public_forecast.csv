@@ -1,0 +1,13 @@
+station,datetime,AQI Value,tomorrows_aqi_value,tomorrows_hazardous_air_day_flag,hazard_probability,hazard_prediction,public_status
+Aotizhongxin,2017-02-27 23:00:00,158.0,49.458333333333336,0,0.7772583940141471,1,High-risk air day expected
+Changping,2017-02-27 23:00:00,33.0,52.291666666666664,0,0.05990887750890188,0,No high-risk air day expected
+Dingling,2017-02-27 23:00:00,38.0,49.0,0,0.07061551004293386,0,No high-risk air day expected
+Dongsi,2017-02-27 23:00:00,156.0,55.458333333333336,0,0.6638081628802067,1,High-risk air day expected
+Guanyuan,2017-02-27 23:00:00,157.0,78.5,0,0.6854087730037842,1,High-risk air day expected
+Gucheng,2017-02-27 23:00:00,105.0,49.041666666666664,0,0.3136025512648265,0,No high-risk air day expected
+Huairou,2017-02-27 23:00:00,151.0,72.20833333333333,0,0.5072252874852506,1,High-risk air day expected
+Nongzhanguan,2017-02-27 23:00:00,151.0,57.75,0,0.6384279922491849,1,High-risk air day expected
+Shunyi,2017-02-27 23:00:00,170.0,66.83333333333333,0,0.7241423216227192,1,High-risk air day expected
+Tiantan,2017-02-27 23:00:00,154.0,53.041666666666664,0,0.6098142835782802,1,High-risk air day expected
+Wanliu,2017-02-27 23:00:00,112.0,39.208333333333336,0,0.3656161440440164,0,No high-risk air day expected
+Wanshouxigong,2017-02-27 23:00:00,142.0,42.583333333333336,0,0.5322896960055215,1,High-risk air day expected

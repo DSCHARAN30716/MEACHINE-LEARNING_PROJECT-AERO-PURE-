@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AeroPure Presentation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="hero compact-hero">
+    <div>
+        <p class="eyebrow">Project handoff</p>
+        <h1>AeroPure W1-W12 Presentation</h1>
+        <p>Download the project deck covering the 12-week build plan, model pipeline, evaluation, drift guard, and interactive forecaster.</p>
+    </div>
+    <div class="hero-panel">
+        <span>Status</span>
+        <strong>{{ 'Ready' if deck_ready else 'Pending' }}</strong>
+        <small>Stored with the website files</small>
+    </div>
+</header>
+
+<main class="container">
+    <section>
+        <h2>Presentation File</h2>
+        {% if deck_ready %}
+        <p>The deck is ready for download and classroom/project submission.</p>
+        <a href="{{ deck_url }}" class="button">Download PPT</a>
+        {% else %}
+        <p>The PPT file has not been generated yet.</p>
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Included Scope</h2>
+        <div class="timeline mini">
+            <div class="timeline-item done"><span>W1-W2</span><strong>Data and pipeline</strong></div>
+            <div class="timeline-item done"><span>W3-W5</span><strong>Baselines</strong></div>
+            <div class="timeline-item done"><span>W6-W8</span><strong>Tree models</strong></div>
+            <div class="timeline-item done"><span>W9-W10</span><strong>Segments and evaluation</strong></div>
+            <div class="timeline-item done"><span>W11-W12</span><strong>Package and deployment</strong></div>
+        </div>
+    </section>
+
+    <a href="/" class="button">Back to Dashboard</a>
+</main>
+
+</body>
+
+</html>

@@ -1,0 +1,2 @@
+service_name,package_name,model_file,public_output,monitoring_output,deployment_mode,readiness
+aeropure-public-forecaster,aeropure_champion_v1,outputs\aeropure_champion_v1\model.joblib,outputs/w12_public_forecast.csv,outputs/w12_drift_monitoring_status.csv,public CSV/API-ready Flask artifact,ready

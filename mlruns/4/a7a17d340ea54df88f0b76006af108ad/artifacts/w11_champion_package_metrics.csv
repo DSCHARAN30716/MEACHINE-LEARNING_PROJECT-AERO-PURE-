@@ -1,0 +1,2 @@
+model,roc_auc,average_precision,f1,brier_score
+hist_gradient_boosting_champion_v1,0.7631982390808825,0.6264868461108569,0.6367776105693123,0.19701969203934483

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AeroPure Scenario Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="hero compact-hero">
+    <div>
+        <p class="eyebrow">Interactive model prompt</p>
+        <h1>Future Air-Quality Predictor</h1>
+        <p>Enter a realistic sensor and weather scenario. The packaged W11/W12 champion model estimates hazardous-air-day risk across the future horizon.</p>
+    </div>
+    <div class="hero-panel">
+        <span>Feature contract</span>
+        <strong>{{ feature_count }} model features</strong>
+        <small>{{ 'Champion model loaded' if model_ready else 'Champion model missing' }}</small>
+    </div>
+</header>
+
+<main class="container">
+
+    {% if error %}
+    <section class="alert">
+        <h2>Model Not Ready</h2>
+        <p>{{ error }}</p>
+    </section>
+    {% endif %}
+
+    <form method="post" class="predictor-layout">
+        <section class="form-panel">
+            <h2>Scenario Inputs</h2>
+
+            <div class="form-grid">
+                <label>
+                    Station
+                    <select name="station">
+                        {% for station in stations %}
+                        <option value="{{ station }}" {% if station == inputs.station %}selected{% endif %}>{{ station }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+
+                <label>
+                    Forecast Days
+                    <input type="number" name="forecast_days" min="1" max="30" value="{{ inputs.forecast_days }}">
+                </label>
+
+                <label>
+                    Current AQI
+                    <input type="number" step="0.1" name="aqi_value" value="{{ inputs.aqi_value }}">
+                </label>
+
+                <label>
+                    PM2.5
+                    <input type="number" step="0.1" name="pm25" value="{{ inputs.pm25 }}">
+                </label>
+
+                <label>
+                    PM10
+                    <input type="number" step="0.1" name="pm10" value="{{ inputs.pm10 }}">
+                </label>
+
+                <label>
+                    SO2
+                    <input type="number" step="0.1" name="so2" value="{{ inputs.so2 }}">
+                </label>
+
+                <label>
+                    NO2
+                    <input type="number" step="0.1" name="no2" value="{{ inputs.no2 }}">
+                </label>
+
+                <label>
+                    CO
+                    <input type="number" step="0.1" name="co" value="{{ inputs.co }}">
+                </label>
+
+                <label>
+                    O3
+                    <input type="number" step="0.1" name="o3" value="{{ inputs.o3 }}">
+                </label>
+
+                <label>
+                    Temperature
+                    <input type="number" step="0.1" name="temp" value="{{ inputs.temp }}">
+                </label>
+
+                <label>
+                    Pressure
+                    <input type="number" step="0.1" name="pres" value="{{ inputs.pres }}">
+                </label>
+
+                <label>
+                    Dew Point
+                    <input type="number" step="0.1" name="dewp" value="{{ inputs.dewp }}">
+                </label>
+
+                <label>
+                    Rain
+                    <input type="number" step="0.1" name="rain" value="{{ inputs.rain }}">
+                </label>
+
+                <label>
+                    Wind Speed
+                    <input type="number" step="0.1" name="wspm" value="{{ inputs.wspm }}">
+                </label>
+
+                <label>
+                    Traffic Intensity
+                    <input type="range" name="traffic_factor" min="0.5" max="2" step="0.1" value="{{ inputs.traffic_factor }}">
+                    <span class="range-value">{{ inputs.traffic_factor }}x</span>
+                </label>
+
+                <label>
+                    Satellite Smoke Signal
+                    <input type="range" name="satellite_smoke" min="0" max="3" step="0.1" value="{{ inputs.satellite_smoke }}">
+                    <span class="range-value">{{ inputs.satellite_smoke }}</span>
+                </label>
+            </div>
+
+            <button class="button" type="submit">Forecast Future Outcomes</button>
+        </section>
+
+        <aside class="insight-panel">
+            <h2>Station Baseline</h2>
+            {% if selected_profile %}
+            <div class="metric-stack">
+                <div><span>Mean AQI</span><strong>{{ selected_profile.mean_aqi }}</strong></div>
+                <div><span>Hazard Rate</span><strong>{{ (selected_profile.hazardous_rate * 100) | round(1) }}%</strong></div>
+                <div><span>Rows Learned</span><strong>{{ selected_profile.rows }}</strong></div>
+            </div>
+            {% endif %}
+            <p>The model uses the week-by-week feature contract: cleaned sensor/weather inputs, historical lags, rolling means, station effects, champion package metadata, and drift monitoring artifacts.</p>
+        </aside>
+    </form>
+
+    {% if forecast %}
+    <section>
+        <h2>Future Forecast</h2>
+        <div class="risk-chart">
+            {% for row in forecast %}
+            <div class="risk-bar">
+                <span>{{ row.forecast_date }}</span>
+                <div class="bar-track">
+                    <div class="bar-fill {{ row.hazard_risk | lower }}" style="width: {{ row.hazard_probability * 100 }}%"></div>
+                </div>
+                <strong>{{ (row.hazard_probability * 100) | round(1) }}%</strong>
+                <small>{{ row.hazard_risk }} · AQI {{ row.projected_aqi }}</small>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="table-container">{{ forecast_table | safe }}</div>
+    </section>
+    {% else %}
+    <section class="empty-state">
+        <h2>Ready to Forecast</h2>
+        <p>Adjust the scenario and submit the form to produce future hazardous-air-day probabilities and projected AQI outcomes.</p>
+    </section>
+    {% endif %}
+
+    <section>
+        <h2>12-Week Model Lineage</h2>
+        <div class="timeline mini">
+            {% for item in week_completion %}
+            <div class="timeline-item {{ 'done' if item.complete else '' }}">
+                <span>{{ item.week }}</span>
+                <strong>{{ 'Used' if item.complete else 'Pending' }}</strong>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <a href="/" class="button">Back to Dashboard</a>
+
+</main>
+
+</body>
+
+</html>

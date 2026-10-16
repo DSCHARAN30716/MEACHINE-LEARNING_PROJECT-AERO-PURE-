@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Week 9 Pollution Regimes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>Week 9 Pollution Regimes</h1>
+    <p>KMeans and DBSCAN clustering with PCA structure and segment labels for later models.</p>
+</header>
+
+<div class="container">
+
+{% if not ready %}
+<section>
+    <h2>Run Required</h2>
+    <p>Run <strong>python week_09_clustering_segments.py</strong> to generate Week 9 results.</p>
+</section>
+{% else %}
+<section>
+    <h2>KMeans Cluster Profile</h2>
+    <div class="table-container">{{ profile | safe }}</div>
+</section>
+<section>
+    <h2>PCA Summary</h2>
+    <div class="table-container">{{ pca | safe }}</div>
+</section>
+<section>
+    <h2>DBSCAN Summary</h2>
+    <div class="table-container">{{ dbscan | safe }}</div>
+</section>
+<section>
+    <h2>Cluster Quality</h2>
+    <div class="table-container">{{ quality | safe }}</div>
+</section>
+<section>
+    <h2>Segment Feature Note</h2>
+    <div class="table-container">{{ note | safe }}</div>
+</section>
+<section>
+    <h2>Segment Preview</h2>
+    <div class="table-container">{{ preview | safe }}</div>
+</section>
+{% endif %}
+
+<a href="/" class="button">Back to Home</a>
+
+</div>
+
+</body>
+
+</html>

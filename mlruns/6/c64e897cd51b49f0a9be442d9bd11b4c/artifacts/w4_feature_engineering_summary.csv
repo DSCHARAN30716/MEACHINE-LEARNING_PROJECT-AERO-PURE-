@@ -1,0 +1,7 @@
+feature_group,count
+sensor_and_weather_current,11
+sensor_and_weather_history,14
+time_features,3
+station_features,12
+traffic_features,0
+satellite_features,0

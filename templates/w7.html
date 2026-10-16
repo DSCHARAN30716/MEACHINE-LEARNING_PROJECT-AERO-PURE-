@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Week 7 Random Forest</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>Week 7 Random Forest</h1>
+    <p>Variance reduction, OOB error, and permutation importance ranking.</p>
+</header>
+
+<div class="container">
+
+{% if not ready %}
+
+<section>
+    <h2>Run Required</h2>
+    <p>Run <strong>python week_07_random_forest.py</strong> to generate Week 7 results.</p>
+</section>
+
+{% else %}
+
+<section>
+    <h2>Forest Metrics</h2>
+    <div class="table-container">{{ metrics | safe }}</div>
+</section>
+
+<section>
+    <h2>Permutation Importance</h2>
+    <div class="table-container">{{ permutation | safe }}</div>
+</section>
+
+<section>
+    <h2>Grouped Importance</h2>
+    <div class="table-container">{{ groups | safe }}</div>
+</section>
+
+<section>
+    <h2>Impurity Importance</h2>
+    <div class="table-container">{{ impurity | safe }}</div>
+</section>
+
+<section>
+    <h2>Unavailable Feature Groups</h2>
+    <div class="table-container">{{ unavailable | safe }}</div>
+</section>
+
+<section>
+    <h2>Prediction Preview</h2>
+    <div class="table-container">{{ predictions | safe }}</div>
+</section>
+
+{% endif %}
+
+<a href="/" class="button">
+    Back to Home
+</a>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,3 @@
+milestone,selected_model,sealed_test_rmse,sealed_test_mae,sealed_test_r2,sealed_test_roc_auc,sealed_test_f1,sealed_test_accuracy
+honest_linear_baseline,lasso_regression,61.559079730578524,46.911758163465606,0.28110641024816174,,,
+honest_logistic_baseline,logistic_regression,,,,0.743419852267952,0.6319252901726334,0.6864608925887937

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Week 11 Champion Package</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>Week 11 Champion Package</h1>
+    <p>Versioned model artifact, shared feature schema, and PSI drift guard.</p>
+</header>
+
+<div class="container">
+
+{% if not ready %}
+<section>
+    <h2>Run Required</h2>
+    <p>Run <strong>python week_11_package_champion.py</strong> to generate Week 11 results.</p>
+</section>
+{% else %}
+<section>
+    <h2>Package Metrics</h2>
+    <div class="table-container">{{ metrics | safe }}</div>
+</section>
+<section>
+    <h2>Package Manifest</h2>
+    <div class="table-container">{{ manifest | safe }}</div>
+</section>
+<section>
+    <h2>PSI Drift Guard</h2>
+    <div class="table-container">{{ drift | safe }}</div>
+</section>
+<section>
+    <h2>Feature Schema</h2>
+    <div class="table-container">{{ schema | safe }}</div>
+</section>
+{% endif %}
+
+<a href="/" class="button">Back to Home</a>
+
+</div>
+
+</body>
+
+</html>

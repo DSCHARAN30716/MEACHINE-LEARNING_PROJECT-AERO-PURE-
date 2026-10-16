@@ -1,0 +1,23 @@
+feature,missing_values,missing_rate
+CO,20701,0.0492
+O3,13277,0.0316
+NO2,12116,0.0288
+AQI Value,9672,0.023
+AQI Category,9672,0.023
+SO2,9021,0.0214
+PM2.5,8739,0.0208
+PM10,6449,0.0153
+wd,1822,0.0043
+DEWP,403,0.001
+TEMP,398,0.0009
+PRES,393,0.0009
+RAIN,390,0.0009
+WSPM,318,0.0008
+hour,0,0.0
+day,0,0.0
+month,0,0.0
+year,0,0.0
+No,0,0.0
+station,0,0.0
+datetime,0,0.0
+source_file,0,0.0
