@@ -643,45 +643,67 @@ def week_completion_summary():
 
 @lru_cache(maxsize=1)
 def prediction_context():
-    from aeropure_features import build_supervised_frame
-
-    raw = load_data()
-    cleaned, _, _ = prepare_clean_data(raw)
-    model_frame, feature_columns, train, test, metadata = build_supervised_frame(cleaned)
+    # Prediction is an inference operation; it does not need to rebuild the
+    # full 420k-row training frame.  Doing that here duplicated several large
+    # pandas objects and caused Render's 512 MB free instance to be killed.
+    # Read only a small tail from each station feed to reconstruct the latest
+    # feature row and use the packaged feature schema/model.
+    schema_path = os.path.join(
+        "outputs", "aeropure_champion_v1", "feature_schema.csv"
+    )
+    feature_columns = pd.read_csv(schema_path)["feature"].tolist()
     model = joblib.load(CHAMPION_MODEL_PATH) if os.path.exists(CHAMPION_MODEL_PATH) else None
-    station_profiles = (
-        model_frame.groupby("station")
-        .agg(
-            mean_aqi=("AQI Value", "mean"),
-            mean_pm25=("PM2.5", "mean"),
-            mean_pm10=("PM10", "mean"),
-            mean_temp=("TEMP", "mean"),
-            mean_wspm=("WSPM", "mean"),
-            hazardous_rate=(TARGET_COLUMN, "mean"),
-            rows=("AQI Value", "size"),
-        )
-        .round(3)
-        .sort_values("hazardous_rate", ascending=False)
-        .reset_index()
-    )
-    latest_rows = (
-        model_frame.sort_values(["datetime", "station"])
-        .groupby("station", as_index=False)
-        .tail(1)
-        .set_index("station")
-    )
+
+    station_profiles = pd.read_csv(
+        os.path.join("outputs", "eda_station_risk_summary.csv")
+    ).round(3)
+    latest_rows = []
+    raw_columns = [
+        "year", "month", "day", "hour", "PM2.5", "PM10", "SO2",
+        "NO2", "CO", "O3", "TEMP", "PRES", "DEWP", "RAIN", "WSPM",
+    ]
+    history_columns = ["AQI Value", "PM2.5", "PM10", "NO2", "O3", "TEMP", "WSPM"]
+    for path in sorted(glob(PRSA_PATH)):
+        station = os.path.basename(path).split("_")[2]
+        tail = pd.read_csv(path, usecols=raw_columns).tail(25).copy()
+        tail["datetime"] = pd.to_datetime(tail[["year", "month", "day", "hour"]])
+        tail["AQI Value"] = pm25_to_aqi(tail["PM2.5"])
+        tail = tail.sort_values("datetime").reset_index(drop=True)
+        current = tail.iloc[-1].copy()
+        current["station"] = station
+        for column in numeric_feature_columns(tail):
+            current[column] = tail[column].iloc[-1]
+        for column in history_columns:
+            values = tail[column].iloc[:-1]
+            current[f"{column}_lag_24h"] = tail[column].iloc[0]
+            current[f"{column}_rolling_24h_mean"] = values.mean()
+        current["hour"] = current["datetime"].hour
+        current["month"] = current["datetime"].month
+        current["day_of_week"] = current["datetime"].dayofweek
+        for column in feature_columns:
+            if column.startswith("station_"):
+                current[column] = int(column == f"station_{station}")
+        latest_rows.append(current)
+
+    latest_rows = pd.DataFrame(latest_rows).set_index("station")
+    for column in feature_columns:
+        if column not in latest_rows:
+            latest_rows[column] = 0.0
+    latest_rows[feature_columns] = latest_rows[feature_columns].apply(
+        pd.to_numeric, errors="coerce"
+    ).fillna(0.0)
     defaults = latest_rows.mean(numeric_only=True).to_dict()
     if not latest_rows.empty:
         first_station = latest_rows.index.sort_values()[0]
         defaults.update(latest_rows.loc[first_station].to_dict())
+
+    model_frame = latest_rows.reset_index()
+    model_frame["datetime"] = [
+        pd.Timestamp("2017-02-28 23:00:00") for _ in range(len(model_frame))
+    ]
     return {
-        "raw": raw,
-        "cleaned": cleaned,
         "model_frame": model_frame,
         "feature_columns": feature_columns,
-        "train": train,
-        "test": test,
-        "metadata": metadata,
         "model": model,
         "station_profiles": station_profiles,
         "latest_rows": latest_rows,
